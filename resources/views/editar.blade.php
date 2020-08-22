@@ -65,51 +65,35 @@
         </style> --}}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Administrador de restaurantes</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="restaurantes/index">Listar Restaurantes <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Reservar mesa</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Listar Reservas
-                  </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="restaurantes/create">Crear Restaurantes <span class="sr-only">(current)</span></a>
-                  </li>
-              </ul>
-
-            </div>
-          </nav>
-
-
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-
-        </div>
+        <br><br>
+            <form action="{{ url('/restaurantes/' . $restaurante->id)}}" method="post" enctype="multipart/form-data">
+                {{csrf_field()}}
+                {{ method_field('PATCH')}}
+                <br>
+                <label for="nombre">{{'Nombre'}}</label>
+                <input type="text" name="nombre" id="nombre" value="{{$restaurante->nombre}}">
+                <br>
+                <label for="descripcion">{{'Descripción'}}</label>
+                <input type="text" name="descripcion" id="descripcion" value="{{$restaurante->descripcion}}">
+                <br>
+                <label for="direccion">{{'Dirección'}}</label>
+                <input type="text" name="direccion" id="direccion" value="{{$restaurante->direccion}}">
+                <br>
+                <label for="ciudad">{{'Ciudad'}}</label>
+                <input type="text" name="ciudad" id="ciudad" value="{{$restaurante->ciudad}}">
+                <br>
+                <label for="urlfoto">{{'Foto de Restaurante'}}</label>
+                <br>
+                <img src="{{asset('storage').'/'. $restaurante->urlfoto}}" alt="" width="200">
+                <img src="{{ asset('storage'). '/' .$restaurante->urlfoto}}" alt="" width="200">
+                <br>
+                <input type="file" name="urlfoto" id="urlfoto" value="">
+                <br><br>
+                <input type="submit" value="Guardar cambios">
+            </form>
+            <br>
+            <br>
+            <br>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

@@ -15,7 +15,9 @@ class Ejemplo3Controller extends Controller
      */
     public function index()
     {
-        return view("listarReservas");
+
+        $datos['restaurantes']=Restaurante::paginate(15);
+        return view('listarRestaurantes', $datos);
     }
 
     /**
@@ -26,8 +28,10 @@ class Ejemplo3Controller extends Controller
     public function create()
     {
         //
-        return view("administrarRestaurantes");
-
+        //return view("administrarRestaurantes");
+        //lista de restaurantes para el crud
+        $datos['restaurantes']=Restaurante::paginate(5);
+        return view("administrarRestaurantes", $datos);
 
     }
 
@@ -48,7 +52,9 @@ class Ejemplo3Controller extends Controller
         }
         Restaurante::insert($datosRestaurante);
         //return response()->json($datosRestaurante);
-        return view("administrarRestaurantes");
+        return redirect("restaurantes/create");
+
+
 
     }
 
@@ -60,7 +66,8 @@ class Ejemplo3Controller extends Controller
      */
     public function show()
     {
-        return view("listarRestaurantes");
+        $datos['restaurantes']=Restaurante::paginate(15);
+        return view("listarRestaurantes", $datos);
 
     }
 
@@ -70,10 +77,13 @@ class Ejemplo3Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
         //
-        return "estas en edit y recibimos el parámetro ";
+
+        $restaurante= Restaurante::findOrFail($id);
+
+        return view('editar',compact('restaurante'));
     }
 
     /**
@@ -86,7 +96,11 @@ class Ejemplo3Controller extends Controller
     public function update(Request $request, $id)
     {
         //
+        $datosRestaurante=request()->except(['_token', '_method']);
+        Restaurante::where('id', '=', $id)->update($datosRestaurante);
 
+        $restaurante = Restaurante::findOrFail($id);
+        return view('editar', compact('restaurante'));
     }
 
     /**
@@ -97,6 +111,8 @@ class Ejemplo3Controller extends Controller
      */
     public function destroy($id)
     {
-        //
+        Restaurante::destroy($id);
+
+        return redirect('restaurantes/create');
     }
 }

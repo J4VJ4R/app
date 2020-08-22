@@ -66,7 +66,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">Administrador de restaurantes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -74,30 +74,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="index">Listar Restaurantes <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Reservar mesa</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                  <a class="nav-link active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Listar Reservas
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="create">Crear Restaurantes <span class="sr-only">(current)</span></a>
+                  </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
+
             </div>
           </nav>
 
@@ -119,19 +110,38 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    listar restaurantes
                 </div>
+                {{--  listando restaurantes  --}}
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                  <table class="table table-light">
+                    <thead class="thead-light">
+                      <th>Código</th>
+                      <th>Nombre</th>
+                      <th>Descripción</th>
+                      <th>Dirección</th>
+                      <th>Ciudad</th>
+                      <th>Foto</th>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($restaurantes as $restaurante)
+
+
+                      <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$restaurante->nombre}}</td>
+                        <td>{{$restaurante->descripcion}}</td>
+                        <td>{{$restaurante->direccion}}</td>
+                        <td>{{$restaurante->ciudad}}</td>
+                        <td>
+                            <img src="{{ asset('storage'). '/' .$restaurante->urlfoto}}" alt="" width="200">
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+
+
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
